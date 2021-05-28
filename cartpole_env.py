@@ -11,9 +11,11 @@ class Environment:
         return r
 
     def train(self, agent, num_episodes):
-        self.play(agent, num_episodes, train=True)
+        return self.play(agent, num_episodes, train=True)
 
     def play(self, agent, num_episodes, train=False):
+
+        rewards = []
         for episode in range(num_episodes):
             state = self.env.reset()
             state = state.reshape(1, self.env.observation_space.shape[0])
@@ -42,3 +44,5 @@ class Environment:
 
             print("episode: {}/{} | score: {}".format(
                 episode + 1, num_episodes, total_reward))
+            rewards.append(total_reward)
+        return rewards
